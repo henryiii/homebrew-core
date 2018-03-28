@@ -16,6 +16,7 @@ class Tbb < Formula
   depends_on :macos => :lion
   depends_on "python@2" if MacOS.version <= :snow_leopard
   depends_on "swig" => :build
+  depends_on "cmake" => :build
 
   def install
     compiler = (ENV.compiler == :clang) ? "clang" : "gcc"
@@ -24,6 +25,11 @@ class Tbb < Formula
     system "make", *args
     lib.install Dir["build/BUILDPREFIX_release/*.dylib"]
     include.install "include/tbb"
+
+    system "cmake", "-DTBB_ROOT=#{prefix}",
+                    "-DTBB_OS=Darwin",
+                    "-DSAVE_TO=#{lib}/cmake/tbb",
+                    "-P", "cmake/tbb_config_generator.cmake"
 
     cd "python" do
       ENV["TBBROOT"] = prefix
