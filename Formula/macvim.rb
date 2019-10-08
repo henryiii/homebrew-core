@@ -2,10 +2,18 @@
 class Macvim < Formula
   desc "GUI for vim, made for macOS"
   homepage "https://github.com/macvim-dev/macvim"
-  url "https://github.com/macvim-dev/macvim/archive/snapshot-157.tar.gz"
   version "8.1-157"
-  sha256 "dbe7f4b19231989bb24f1e3e42f1372451974d8a224ba17498a103c325635e0a"
   head "https://github.com/macvim-dev/macvim.git"
+
+  # Issue #44995, needed for XCode 11, drop after snapshot-157
+  stable do
+    url "https://github.com/macvim-dev/macvim/archive/snapshot-157.tar.gz"
+    sha256 "6447bce4ec7b7f67327da8f7b2e9d4f4b748c1afb90f781fecb6b4a3f54cf0a0"
+    patch do
+      url "https://github.com/macvim-dev/macvim/pull/946.patch?full_index=1"
+      sha256 "662548205298fa918606009e3e99151d760f2f042ef2a59215845b14cdb4e85d"
+    end
+  end
 
   bottle do
     cellar :any
