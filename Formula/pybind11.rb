@@ -64,10 +64,10 @@ class Pybind11 < Formula
     system ENV.cxx, "-O3", "-shared", "-std=c++11", *python_flags, "example.cpp", "-o", "example.so"
     system Formula["python@3.9"].opt_bin/"python3", "example.py"
 
-    test_module = shell_output("#{Formula['python@3.9'].opt_bin/'python3'} -m pybind11 --includes")
+    test_module = shell_output("#{Formula["python@3.9"].opt_bin/"python3"} -m pybind11 --includes")
     assert_match (libexec/site_packages).to_s, test_module
 
-    test_script = shell_output("#{opt_bin/'pybind11-config'} --includes")
+    test_script = shell_output("#{opt_bin/"pybind11-config"} --includes")
     assert_match test_module, test_script
   end
 end
